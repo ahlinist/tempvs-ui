@@ -1,0 +1,352 @@
+* {
+    margin: 0;
+    padding: 0;
+    border-radius: 0 !important;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.ajax-form {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 4px #eee groove;
+}
+
+img {
+    max-width: 100%;
+    border: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+div {
+    padding: 0;
+}
+
+input, .list-group-item {
+    padding: 0.2em 1em;
+}
+
+.popover {
+    width:100%;
+}
+
+.tempvs-form-field {
+    margin:0.3em 0 0.3em 0;
+}
+
+.glyphicon {
+    top: 0px;
+}
+
+select:disabled {
+    background: #DDD;
+}
+
+.btn {
+    border: 1px #DDD solid;
+}
+
+.hovering > .glyphicon-pencil, .hovering > .fa-pencil {
+    display: none;
+}
+
+.hovering:hover > .glyphicon-pencil, .hovering:hover > .fa-pencil {
+    color: #AAA;
+    display: inline-block;
+}
+
+.glyphicon-arrow-down, .glyphicon-arrow-up {
+    cursor: pointer;
+}
+
+#overlay {
+    background-image: url('/static/images/spinner.gif');
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: rgba(1, 1, 1, 0.1);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.modal-dialog {
+    width: inherit;
+    max-width: 600px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+[disabled] {
+    pointer-events: none;
+}
+
+label {
+     overflow: hidden;
+     cursor: pointer;
+     display: inline-block;
+     margin: 0 0.25em 0 0;
+}
+
+.well {
+    margin : 0px;
+}
+
+.counter {
+    background-color: red !important;
+    border-radius: 10px !important;
+}
+
+.fa {
+    line-height: 20px;
+}
+
+.message-unread {
+  background-color: #E9F9FF;
+}
+
+.popover-title {
+  display: none;
+}
+
+.table-cell {
+  padding: 5px;
+  border: solid 1px #EEE;
+}
+
+html, code, kbd, pre, samp {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+    height: 100%;
+    background: white;
+    overflow: auto
+    -webkit-overflow-scrolling: touch;
+}
+
+p, ul, pre, h1, h2, h3, h4, h5, h6, h7, h8 {
+    margin: 1em 0;
+}
+
+p {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6, h7, h8 {
+    font-weight: bold;
+    line-height: 1.1;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: auto;
+    }
+}
+
+/* specific to index.html */
+
+body, html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #FFF;
+    color: #343437;
+    line-height: 25px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 2.125em;
+    margin: .67em 0
+}
+
+h2 {
+    font-size: 1.6875em;
+    font-weight: bold;
+}
+
+h3, #toctitle, .sidebarblock > .content > .title {
+    font-size: 1.375em;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 1.125em;
+    font-weight: bold;
+}
+
+h5 {
+    font-size: 1.125em;
+    font-weight: bold;
+    color: #db4800;
+}
+
+h6 {
+    font-size: 1.08em;
+    font-weight: normal;
+    color: #db4800;
+}
+
+h7 {
+    font-weight: bold;
+    color: #245f78;
+}
+
+h8 {
+    color: #245f78;
+}
+
+.row {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.row:before, .row:after {
+    content: " ";
+    display: table
+}
+
+.row:after {
+    clear: both
+}
+
+ul.nav-sidebar {
+    margin: 0;
+    margin-top: 20px;
+    padding: 5px 0;
+    border: 1px solid #EEE;
+    list-style-type: none
+}
+
+ul.nav-sidebar li a {
+    display: block;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #343437
+}
+
+ul.nav-sidebar li.active a:hover, ul.nav-sidebar li a:hover {
+    color: white;
+    background-color: #db4800;
+}
+
+ul.nav-sidebar li.active a {
+    background-color: #f2f2f2
+}
+
+*, *:after, *::before {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+html.noScroll {
+    overflow: hidden
+}
+
+html.noScroll body, html.noScroll .st-container, html.noScroll .st-pusher, html.noScroll .st-content {
+    overflow: hidden
+}
+
+/* FONT STACK */
+body,
+input, select, textarea {
+    font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+/* BASE LAYOUT */
+
+html {
+    background-image: -moz-linear-gradient(center top, #aaa, #ddd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
+    background-image: linear-gradient(top, #aaa, #ddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
+    background-repeat: no-repeat;
+    height: 100%;
+    /* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a:hover, a:active {
+    outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+    font-size: 1.25em;
+    margin: 0.8em 0 0.3em 0;
+}
+
+input, select, textarea {
+    background-color: #fcfcfc;
+    border: 1px solid #cccccc;
+    font-size: 1em;
+    padding: 0.2em 0.4em;
+}
+
+select {
+    padding: 0.2em 0.2em 0.2em 0;
+}
+
+select[multiple] {
+    vertical-align: top;
+}
+
+textarea {
+    width: 250px;
+    height: 150px;
+    overflow: auto; /* IE always renders vertical scrollbar without this */
+    vertical-align: top;
+}
+
+input[type=checkbox], input[type=radio] {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    outline: 0;
+    -moz-box-shadow: 0 0 0.5em #ffffff;
+    -webkit-box-shadow: 0 0 0.5em #ffffff;
+    box-shadow: 0 0 0.5em #ffffff;
+}
+
+/* same effects for browsers that support HTML5 client-side validation (these have to be specified separately or IE will ignore the entire rule) */
+
+input:invalid, select:invalid, textarea:invalid {
+    background: #fff3f3;
+    border-color: #ffaaaa;
+    color: #cc0000;
+}
+
+input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
+    -moz-box-shadow: 0 0 0.5em #ffaaaa;
+    -webkit-box-shadow: 0 0 0.5em #ffaaaa;
+    box-shadow: 0 0 0.5em #ffaaaa;
+}
