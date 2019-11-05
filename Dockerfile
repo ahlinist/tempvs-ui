@@ -11,5 +11,3 @@ COPY css /usr/share/nginx/html/css
 COPY images /usr/share/nginx/html/images
 
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/
-
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
