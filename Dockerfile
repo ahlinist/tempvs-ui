@@ -12,4 +12,4 @@ COPY images /usr/share/nginx/html/images
 
 COPY nginx/conf.d /etc/nginx/conf.d
 
-RUN sudo /etc/init.d/name
+RUN /etc/init.d/name
