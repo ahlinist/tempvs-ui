@@ -11,3 +11,5 @@ COPY css /usr/share/nginx/html/css
 COPY images /usr/share/nginx/html/images
 
 COPY nginx/conf.d /etc/nginx/conf.d
+
+RUN sudo /etc/init.d/name
