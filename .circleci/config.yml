@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:11-jdk
-
     steps:
       - checkout
       - setup_remote_docker:
@@ -11,22 +10,9 @@ jobs:
       - run:
           name: Build docker image
           command: |
-            docker build -t antonhlinisty/$HEROKU_APP_NAME .
+            docker build -t tempvs-ui .
       - run:
-          name: Push docker image to dockerhub
+          name: Push docker image to Amazon ECR
           command: |
-            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push antonhlinisty/$HEROKU_APP_NAME
-      - run:
-          name: Deploy at heroku
-          command: |
-            echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN registry.heroku.com --password-stdin
-            docker tag  antonhlinisty/$HEROKU_APP_NAME registry.heroku.com/$HEROKU_APP_NAME/web
-            docker push registry.heroku.com/$HEROKU_APP_NAME/web
-            docker inspect registry.heroku.com/$HEROKU_APP_NAME/web --format={{.Id}} > WEB_DOCKER_IMAGE_ID_FILE
-            export WEB_DOCKER_IMAGE_ID=$(cat WEB_DOCKER_IMAGE_ID_FILE)
-            curl -n -X PATCH https://api.heroku.com/apps/$HEROKU_APP_NAME/formation \
-              -d '{ "updates": [ { "type": "web", "docker_image": "'"$WEB_DOCKER_IMAGE_ID"'" }]}' \
-              -H "Content-Type: application/json" \
-              -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
-              -H "Authorization: Bearer $HEROKU_API_KEY"
+            $(aws ecr get-login --no-include-email --region us-east-2)
+            docker push 471216354450.dkr.ecr.us-east-2.amazonaws.com/tempvs-ui:latest
