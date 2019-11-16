@@ -14,6 +14,6 @@ jobs:
       - run:
           name: Push docker image to Amazon ECR
           command: |
-            apt-get install awscli
+            sudo apt-get install awscli
             $(aws ecr get-login --no-include-email --region us-east-2)
             docker push 471216354450.dkr.ecr.us-east-2.amazonaws.com/tempvs-ui:latest
