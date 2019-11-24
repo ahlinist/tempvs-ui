@@ -70,7 +70,7 @@ export const profile = {
       const object = {
         firstName: formData.get('firstName'),
         lastName: formData.get('lastName'),
-        nickName: formData.get('nickName') | null,
+        nickName: formData.get('nickName') || null,
         type: 'USER'
       };
 
