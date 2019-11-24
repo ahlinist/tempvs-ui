@@ -92,14 +92,14 @@ export const profile = {
       profile.renderProfile(data, userInfo, lang);
     });
   },
-  renderProfile: function(profile, userInfo, lang) {
+  renderProfile: function(prof, userInfo, lang) {
     const messageSource = i18n[lang] || i18n['en'];
     const properties = messageSource.properties;
-    const profileId = profile.id;
-    const firstName = profile.firstName;
-    const lastName = profile.lastName;
-    const nickName = profile.nickName;
-    const period = profile.period;
+    const profileId = prof.id;
+    const firstName = prof.firstName;
+    const lastName = prof.lastName;
+    const nickName = prof.nickName;
+    const period = prof.period;
     ajaxHandler.hideModals();
     pageBuilder.initPage('template#profile', '/profile/' + profileId, firstName + ' ' + lastName);
 
@@ -112,32 +112,66 @@ export const profile = {
     const updateNickNameAction = '/api/profile/' + profileId + '/nickName';
     const profileForm = document.querySelector(".profile-form");
 
-    const isEditable = profile.id == userInfo.profileId;
+    const isEditable = profileId == userInfo.profileId;
     pageBuilder.smartForm(profileForm, firstNameLabel, firstName, 'firstName', updateFirstNameAction, isEditable, true);
     pageBuilder.smartForm(profileForm, lastNameLabel, lastName, 'lastName', updateLastNameAction, isEditable);
     pageBuilder.smartForm(profileForm, nickNameLabel, nickName, 'nickName', updateNickNameAction, isEditable);
 
-    if (profile.type === 'USER') {
-      const clubProfilesSection = document.querySelector('div.club-profiles');
+    if (prof.type === 'USER') {
+      const clubProfilesSection = document.querySelector('div.club-profiles-section');
       const clubProfilesHeading = clubProfilesSection.querySelector('h2.club-profiles-heading');
       clubProfilesHeading.innerHTML = messageSource.club.listHeading;
-      const createClubProfileButton = clubProfilesSection.querySelector('button.create-club-profile-button');
-      createClubProfileButton.classList.remove('hidden');
-      const createClubProfileForm = clubProfilesSection.querySelector('form.create-club-profile-form');
-      createClubProfileForm.querySelector('label[for=firstName]').innerHTML = messageSource.properties.firstName;
-      createClubProfileForm.querySelector('label[for=lastName]').innerHTML = messageSource.properties.lastName;
-      createClubProfileForm.querySelector('label[for=period]').innerHTML = messageSource.properties.period + ' *';
-      const periods = periodI18n.en.period;
-      const periodOptions = createClubProfileForm.querySelectorAll('select[name=period] > option');
-      periodOptions.forEach(function(option) {
-        option.innerHTML = periods[option.value].name;
-      });
-      const submitButton = createClubProfileForm.querySelector('button.submit-button');
-      submitButton.innerHTML = messageSource.club.createButton;
+
+      if (prof.userId === userInfo.userId) {
+        const createClubProfileButton = clubProfilesSection.querySelector('button.create-club-profile-button');
+        createClubProfileButton.classList.remove('hidden');
+        const createClubProfileForm = clubProfilesSection.querySelector('form.create-club-profile-form');
+        createClubProfileForm.querySelector('label[for=firstName]').innerHTML = messageSource.properties.firstName;
+        createClubProfileForm.querySelector('label[for=lastName]').innerHTML = messageSource.properties.lastName;
+        createClubProfileForm.querySelector('label[for=period]').innerHTML = messageSource.properties.period + ' *';
+        const periods = periodI18n.en.period;
+        const periodOptions = createClubProfileForm.querySelectorAll('select[name=period] > option');
+        periodOptions.forEach(function(option) {
+          option.innerHTML = periods[option.value].name;
+        });
+        const submitButton = createClubProfileForm.querySelector('button.submit-button');
+        submitButton.innerHTML = messageSource.club.createButton;
+        createClubProfileForm.onsubmit = function() {
+          profile.createClubProfile(this);
+          return false;
+        };
+      }
     }
 
     if (profile.type === 'CLUB') {
       pageBuilder.smartForm(profileForm, periodLabel, period, 'period', null, isEditable);
     }
+  },
+  createClubProfile: function(form) {
+    const formData = new FormData(form);
+
+    const object = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      period: formData.get('period')
+    };
+
+    const payload = {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(object)
+    };
+
+    const actions = {
+      200: profile.parseProfileResponse,
+      400: function(response, form) {
+        formValidator.handleBadRequest(response, form);
+      }
+    };
+
+    ajaxHandler.blockUI();
+    ajaxHandler.fetch(form, form.action, payload, actions);
   }
 };
