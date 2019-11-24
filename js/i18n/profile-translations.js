@@ -12,6 +12,10 @@ export const i18n = {
       lastName: "Last Name",
       nickName: "Nick Name",
       period: "Period",
+    },
+    club: {
+        listHeading: "Club profiles",
+        createButton: "Create club profile"
     }
   }
 }

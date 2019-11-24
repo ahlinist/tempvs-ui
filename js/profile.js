@@ -4,6 +4,7 @@ import {formValidator} from './validation/form-validator.js';
 import {langResolver} from './i18n/language-resolver.js';
 import {user} from './user.js';
 import {ajaxHandler} from './ajax/ajax-handler.js';
+import {i18n as periodI18n} from './i18n/period-translations.js';
 
 export const profile = {
   init: function() {
@@ -115,6 +116,25 @@ export const profile = {
     pageBuilder.smartForm(profileForm, firstNameLabel, firstName, 'firstName', updateFirstNameAction, isEditable, true);
     pageBuilder.smartForm(profileForm, lastNameLabel, lastName, 'lastName', updateLastNameAction, isEditable);
     pageBuilder.smartForm(profileForm, nickNameLabel, nickName, 'nickName', updateNickNameAction, isEditable);
+
+    if (profile.type === 'USER') {
+      const clubProfilesSection = document.querySelector('div.club-profiles');
+      const clubProfilesHeading = clubProfilesSection.querySelector('h2.club-profiles-heading');
+      clubProfilesHeading.innerHTML = messageSource.club.listHeading;
+      const createClubProfileButton = clubProfilesSection.querySelector('button.create-club-profile-button');
+      createClubProfileButton.classList.remove('hidden');
+      const createClubProfileForm = clubProfilesSection.querySelector('form.create-club-profile-form');
+      createClubProfileForm.querySelector('label[for=firstName]').innerHTML = messageSource.properties.firstName;
+      createClubProfileForm.querySelector('label[for=lastName]').innerHTML = messageSource.properties.lastName;
+      createClubProfileForm.querySelector('label[for=period]').innerHTML = messageSource.properties.period + ' *';
+      const periods = periodI18n.en.period;
+      const periodOptions = createClubProfileForm.querySelectorAll('select[name=period] > option');
+      periodOptions.forEach(function(option) {
+        option.innerHTML = periods[option.value].name;
+      });
+      const submitButton = createClubProfileForm.querySelector('button.submit-button');
+      submitButton.innerHTML = messageSource.club.createButton;
+    }
 
     if (profile.type === 'CLUB') {
       pageBuilder.smartForm(profileForm, periodLabel, period, 'period', null, isEditable);

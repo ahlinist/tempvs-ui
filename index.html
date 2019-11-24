@@ -898,7 +898,65 @@
         <div class="col-sm-4">
           <div class="ajax-form profile-form"></div>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-4 club-profiles">
+          <h2 class="club-profiles-heading"></h2>
+          <ul class="club-profile-list"></ul>
+          <button class="create-club-profile-button hidden pull-right btn btn-default" data-toggle="modal" data-target="#create-club-profile-popup">
+            <span class="fa fa-plus"></span>
+          </button>
+          <div id="create-club-profile-popup" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="row ajax-form">
+                    <div class="row">
+                      <form class="create-club-profile-form" action="/profile/club-profile">
+                        <div>
+                          <div class="col-sm-6">
+                            <label for="firstName"></label>
+                          </div>
+                          <div class="col-sm-6">
+                            <input class="col-sm-12 tempvs-form-field" type="text" name="firstName">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label for="lastName"></label>
+                          </div>
+                          <div class="col-sm-6">
+                            <input class="col-sm-12 tempvs-form-field" type="text" name="lastName">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label for="period"></label>
+                          </div>
+                          <div class="col-sm-6">
+                            <select class="col-sm-12" name="period">
+                              <option value=""></option>
+                              <option value="ANCIENT"></option>
+                              <option value="ANTIQUITY"></option>
+                              <option value="EARLY_MIDDLE_AGES"></option>
+                              <option value="HIGH_MIDDLE_AGES"></option>
+                              <option value="LATE_MIDDLE_AGES"></option>
+                              <option value="RENAISSANCE"></option>
+                              <option value="MODERN"></option>
+                              <option value="WWI"></option>
+                              <option value="WWII"></option>
+                              <option value="CONTEMPORARY"></option>
+                              <option value="OTHER"></option>
+                            </select>
+                          </div>
+                        </div>
+                        <button class="btn btn-default submit-button"></button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
       </div>
     </template>
     <template id="image-section">
