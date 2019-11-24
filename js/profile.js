@@ -39,7 +39,6 @@ export const profile = {
     const form = document.querySelector('form.create-user-profile-form');
     form.querySelector('label[for=firstName]').innerHTML = properties.firstName + ' *';
     form.querySelector('label[for=lastName]').innerHTML = properties.lastName + ' *';
-    form.querySelector('label[for=nickName]').innerHTML = properties.nickName;
     const submitButton = form.querySelector('button.submit-button').innerHTML = messages.submitButton;
 
     form.onsubmit = function() {
@@ -70,7 +69,6 @@ export const profile = {
       const object = {
         firstName: formData.get('firstName'),
         lastName: formData.get('lastName'),
-        nickName: formData.get('nickName') || null,
         type: 'USER'
       };
 
