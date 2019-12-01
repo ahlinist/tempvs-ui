@@ -216,7 +216,10 @@ export const pageBuilder = {
   },
   imageSection: function(imageContainer, uploadAction, messageSource, fetchImagesUrl, isEditable) {
     function callSelf() {
-      pageBuilder.imageSection(imageContainer, uploadAction, messageSource, fetchImagesUrl, isEditable);
+      setTimeout(
+        function() {pageBuilder.imageSection(imageContainer, uploadAction, messageSource, fetchImagesUrl, isEditable)},
+        1000
+        );
     }
 
     const imageFetchActions = {

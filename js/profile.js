@@ -1,5 +1,6 @@
 import {pageBuilder} from './page/page-builder.js';
 import {i18n} from './i18n/profile-translations.js';
+import {i18n as imageI18n} from './i18n/image-translations.js';
 import {formValidator} from './validation/form-validator.js';
 import {langResolver} from './i18n/language-resolver.js';
 import {user} from './user.js';
@@ -112,13 +113,20 @@ export const profile = {
     const updateNickNameAction = '/api/profile/' + profileId + '/nickName';
     const profileForm = document.querySelector(".profile-form");
 
-    const isEditable = profileId == userInfo.profileId;
+    const isEditable = prof.userId == userInfo.userId;
     pageBuilder.smartForm(profileForm, firstNameLabel, firstName, 'firstName', updateFirstNameAction, isEditable, true);
     pageBuilder.smartForm(profileForm, lastNameLabel, lastName, 'lastName', updateLastNameAction, isEditable);
     pageBuilder.smartForm(profileForm, nickNameLabel, nickName, 'nickName', updateNickNameAction, isEditable);
 
+    pageBuilder.imageSection(
+      document.querySelector('div.image-container'),
+      '/api/profile/profile/' + profileId + '/avatar',
+      imageI18n['en'],
+      '/api/image/image/profile/' + profileId,
+      isEditable
+    );
+
     if (prof.type === 'USER') {
-      const isEditable = prof.userId === userInfo.userId;
       const clubProfilesSection = document.querySelector('div.club-profiles-section');
       clubProfilesSection.classList.remove('hidden');
       const clubProfilesHeading = clubProfilesSection.querySelector('h2.club-profiles-heading');

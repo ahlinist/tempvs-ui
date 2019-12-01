@@ -893,7 +893,9 @@
     </template>
     <template id="profile">
       <div class="row">
-        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <div class="image-container"></div>
+        </div>
         <div class="col-sm-4">
           <div class="ajax-form profile-form"></div>
         </div>
@@ -967,11 +969,11 @@
       <div>
         <img id="default-image" src="/images/default_image.gif" style="width: 30vw;">
         <div id="image-carousel" class="hidden">
-          <div class="btn" id="modal-activate-button" type="button" data-toggle="modal" data-target="#modal-source-images" data-local="#carousel-source-images">
+          <div class="btn" id="modal-activate-button" type="button" data-toggle="modal" data-target="#images-modal" data-local="#images-carousel">
             <span class="badge badge-notify" style="position: absolute; right:15px; top:0px;"></span>
             <div id="first-image-holder"></div>
           </div>
-          <div class="modal fade" id="modal-source-images" tabindex="-1" role="dialog">
+          <div class="modal fade" id="images-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" style="max-width: 90vw;">
               <div class="modal-content">
                 <div id="carousel-modal-header" class="modal-header" style="z-index:90;  position:absolute; right:0px; padding: 0px; display: table-row;">
@@ -998,7 +1000,7 @@
                   </span>
                 </div>
                 <div class="modal-body">
-                  <div id="carousel-source-images" class="carousel slide">
+                  <div id="images-carousel" class="carousel slide">
                     <!-- Indicators -->
                     <ol class="carousel-indicators"></ol>
                     <template id="image-indicator">
@@ -1012,11 +1014,11 @@
                       </div>
                     </template>
                     <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#carousel-source-images" data-slide="prev" style="background:none">
+                    <a class="left carousel-control" href="#images-carousel" data-slide="prev" style="background:none">
                       <span class="glyphicon glyphicon-chevron-left"></span>
                       <span class="sr-only">Previous</span>
                     </a>
-                    <a class="right carousel-control" href="#carousel-source-images" data-slide="next" style="background:none">
+                    <a class="right carousel-control" href="#images-carousel" data-slide="next" style="background:none">
                       <span class="glyphicon glyphicon-chevron-right"></span>
                       <span class="sr-only">Next</span>
                     </a>
