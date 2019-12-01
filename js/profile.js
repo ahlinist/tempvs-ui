@@ -86,13 +86,13 @@ export const profile = {
   },
   parseProfileResponse: function(response) {
     const userInfo = JSON.parse(response.headers.get("User-Info"));
+    const lang = langResolver.resolve(response) || 'en';
 
     response.json().then(function(data) {
-      const lang = langResolver.resolve(response) || 'en';
       profile.renderProfile(data, userInfo, lang);
     });
   },
-  renderProfile: function(prof, userInfo, lang) {
+  renderProfile: (prof, userInfo, lang) => {
     const messageSource = i18n[lang] || i18n['en'];
     const properties = messageSource.properties;
     const profileId = prof.id;
@@ -118,34 +118,80 @@ export const profile = {
     pageBuilder.smartForm(profileForm, nickNameLabel, nickName, 'nickName', updateNickNameAction, isEditable);
 
     if (prof.type === 'USER') {
+      const isEditable = prof.userId === userInfo.userId;
       const clubProfilesSection = document.querySelector('div.club-profiles-section');
+      clubProfilesSection.classList.remove('hidden');
       const clubProfilesHeading = clubProfilesSection.querySelector('h2.club-profiles-heading');
       clubProfilesHeading.innerHTML = messageSource.club.listHeading;
 
-      if (prof.userId === userInfo.userId) {
-        const createClubProfileButton = clubProfilesSection.querySelector('button.create-club-profile-button');
-        createClubProfileButton.classList.remove('hidden');
-        const createClubProfileForm = clubProfilesSection.querySelector('form.create-club-profile-form');
-        createClubProfileForm.querySelector('label[for=firstName]').innerHTML = messageSource.properties.firstName;
-        createClubProfileForm.querySelector('label[for=lastName]').innerHTML = messageSource.properties.lastName;
-        createClubProfileForm.querySelector('label[for=period]').innerHTML = messageSource.properties.period + ' *';
-        const periods = periodI18n.en.period;
-        const periodOptions = createClubProfileForm.querySelectorAll('select[name=period] > option');
-        periodOptions.forEach(function(option) {
-          option.innerHTML = periods[option.value].name;
-        });
-        const submitButton = createClubProfileForm.querySelector('button.submit-button');
-        submitButton.innerHTML = messageSource.club.createButton;
-        createClubProfileForm.onsubmit = function() {
-          profile.createClubProfile(this);
-          return false;
-        };
+      profile.buildClubProfilesList(clubProfilesSection, prof.userId);
+
+      if (isEditable) {
+        profile.renderCreateClubProfilesButton(clubProfilesSection, messageSource);
       }
     }
 
     if (profile.type === 'CLUB') {
       pageBuilder.smartForm(profileForm, periodLabel, period, 'period', null, isEditable);
     }
+  },
+  renderCreateClubProfilesButton: (clubProfilesSection, messageSource) => {
+    const createClubProfileButton = clubProfilesSection.querySelector('button.create-club-profile-button');
+    createClubProfileButton.classList.remove('hidden');
+    const createClubProfileForm = clubProfilesSection.querySelector('form.create-club-profile-form');
+    createClubProfileForm.querySelector('label[for=firstName]').innerHTML = messageSource.properties.firstName;
+    createClubProfileForm.querySelector('label[for=lastName]').innerHTML = messageSource.properties.lastName;
+    createClubProfileForm.querySelector('label[for=period]').innerHTML = messageSource.properties.period + ' *';
+    const periods = periodI18n.en.period;
+    const periodOptions = createClubProfileForm.querySelectorAll('select[name=period] > option');
+    periodOptions.forEach(function(option) {
+      option.innerHTML = periods[option.value].name;
+    });
+    const submitButton = createClubProfileForm.querySelector('button.submit-button');
+    submitButton.innerHTML = messageSource.club.createButton;
+    createClubProfileForm.onsubmit = function() {
+      profile.createClubProfile(this);
+      return false;
+    };
+  },
+  renderClubProfilesList: (clubProfilesSection, profiles, userInfo, lang) => {
+    const profileListItemTemplate = clubProfilesSection.querySelector('template#profile-list-item-template');
+    const clubProfileList = clubProfilesSection.querySelector('ul.club-profile-list');
+
+    for (const prof of profiles) {
+      const profileId = prof.id;
+      const profileListItem = profileListItemTemplate.content.querySelector('a');
+      const profileLink = document.importNode(profileListItem, true);
+      profileLink.href = '/profile/' + profileId;
+      profileLink.onclick = function() {
+        profile.renderProfile(prof, userInfo, lang);
+        return false;
+      }
+      profileLink.innerHTML = prof.firstName + ' ' + prof.lastName + ' ' + (prof.nickName ? prof.nickName : '');
+      clubProfileList.appendChild(profileLink);
+    }
+  },
+  buildClubProfilesList: (clubProfilesSection, userId) => {
+    const url = '/api/profile/club-profile?userId=' + userId;
+    const payload = {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const actions = {
+      200: (response) => {
+        const userInfo = JSON.parse(response.headers.get("User-Info"));
+        const lang = langResolver.resolve(response) || 'en';
+
+        response.json().then(function(data) {
+          profile.renderClubProfilesList(clubProfilesSection, data, userInfo, lang);
+        });
+      }
+    };
+
+    ajaxHandler.fetch(null, url, payload, actions);
   },
   createClubProfile: function(form) {
     const formData = new FormData(form);
