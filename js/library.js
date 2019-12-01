@@ -322,7 +322,7 @@ export const library = {
     const roles = userInfo ? userInfo.roles : null;
     const isEditable = library.isEditAllowed(roles)
 
-    const imageContainer = document.querySelector('div#image-container');
+    const imageContainer = document.querySelector('div.image-container');
     const uploadImageAction = '/api/library/source/' + sourceId + '/images';
     const fetchImagesUrl = '/api/image/image/source/' + sourceId;
 

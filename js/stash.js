@@ -261,7 +261,7 @@ export const stash = {
 
     linkedSources.build(linkedSourcesContainer, item, isEditable);
 
-    const imageContainer = document.querySelector('div#image-container');
+    const imageContainer = document.querySelector('div.image-container');
     const uploadImageAction = '/api/stash/item/' + item.id + '/images';
     const fetchImagesUrl = '/api/image/image/item/' + item.id;
 
