@@ -113,7 +113,7 @@ export const profile = {
     const updateNickNameAction = '/api/profile/' + profileId + '/nickName';
     const profileForm = document.querySelector(".profile-form");
 
-    const isEditable = prof.userId == userInfo.userId;
+    const isEditable = prof.userId === (userInfo ? userInfo.userId : false);
     pageBuilder.smartForm(profileForm, firstNameLabel, firstName, 'firstName', updateFirstNameAction, isEditable, true);
     pageBuilder.smartForm(profileForm, lastNameLabel, lastName, 'lastName', updateLastNameAction, isEditable);
     pageBuilder.smartForm(profileForm, nickNameLabel, nickName, 'nickName', updateNickNameAction, isEditable);
